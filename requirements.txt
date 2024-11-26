@@ -5,3 +5,7 @@ pmdarima
 statsmodels
 scikit-learn
 openpyxl
+numpy
+scipy
+Cython
+pandas
