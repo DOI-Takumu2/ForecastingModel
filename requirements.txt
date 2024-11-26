@@ -5,7 +5,7 @@ pmdarima
 statsmodels
 scikit-learn
 openpyxl
-numpy
+numpy==1.21.0
 scipy
 Cython
 pandas
