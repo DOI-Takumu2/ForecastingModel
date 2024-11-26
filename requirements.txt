@@ -1,12 +1,12 @@
 pip>=24.3.1
+setuptools>=65.5.1
+wheel
 numpy>=1.21.2
-scipy
-pandas
 Cython>=0.29.36
-setuptools>=38.6.0
-joblib
-pmdarima==2.0.3
+scipy>=1.7.3
+pandas>=1.3.0
 statsmodels>=0.13.2
+pmdarima==2.0.3
 matplotlib
 streamlit
 openpyxl
