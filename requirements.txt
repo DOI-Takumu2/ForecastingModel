@@ -1,11 +1,9 @@
-streamlit
-pandas
-matplotlib
-pmdarima
-statsmodels
-scikit-learn
-openpyxl
 numpy==1.21.0
 scipy
-Cython
 pandas
+Cython
+pmdarima==2.0.3
+statsmodels
+matplotlib
+streamlit
+openpyxl
