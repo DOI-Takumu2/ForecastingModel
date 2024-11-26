@@ -4,21 +4,27 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 import matplotlib.pyplot as plt
 
 def forecast_sarimax(data, freq, future_periods):
+    # 列名の前後の空白を削除
+    data.columns = data.columns.str.strip()
+
+    # 列名を英語に変換（必要に応じて）
+    data.rename(columns={"日付": "Date", "値": "Value"}, inplace=True)
+    
     # 必須列の確認
     required_columns = ['Date', 'Value']
     if not all(col in data.columns for col in required_columns):
         raise ValueError(f"Excel ファイルに以下の列名が必要です: {required_columns}")
     
     # データ前処理
-    data['Date'] = pd.to_datetime(data['Date'], errors='coerce')
-    data.dropna(subset=['Date'], inplace=True)
-    data.set_index('Date', inplace=True)
+    data['Date'] = pd.to_datetime(data['Date'], errors='coerce')  # 日付型に変換
+    data.dropna(subset=['Date'], inplace=True)  # 欠損行を削除
+    data.set_index('Date', inplace=True)  # 日付をインデックスに設定
     ts = data['Value']
     
     # リサンプリング
     ts = ts.resample(freq).mean().fillna(method='ffill')
     if ts.empty:
-        raise ValueError("リサンプリング後のデータが空です。")
+        raise ValueError("リサンプリング後のデータが空です。元データまたは頻度設定を確認してください。")
     
     # モデルの最適化
     model = auto_arima(ts, seasonal=True, m=12 if freq in ['M', 'ME'] else 1, trace=False, error_action='ignore', suppress_warnings=True, stepwise=True)
